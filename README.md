@@ -1,3 +1,3 @@
-![FF](https://github.com/k33g/fastforward/blob/master/public/logo.png)
+![FF](https://raw.github.com/k33g/fastforward/master/public/logo.png)
 
     stay tuned ...
