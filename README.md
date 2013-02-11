@@ -8,6 +8,6 @@
 
 >>For Rasperry-PI
 
->>With Golo (... and a little bit of Java)
+>>With [Golo](http://golo-lang.org/) (... and a little bit of Java)
 
     stay tuned ...
