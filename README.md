@@ -1,6 +1,6 @@
 #Fast!>>Forward NextGen.
 
-![FF](https://raw.github.com/k33g/fastforward/master/public/logo.png)
+![FF](https://raw.github.com/k33g/fastforward/master/logo.png)
 
 ##More docs to come ...
 
