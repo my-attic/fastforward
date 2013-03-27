@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Fast!>>Forward NextGen</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <script src="js/vendors/jquery.js"></script>
+    <script>
+        $(function (){
+            $("h2").css("color", "green");
+
+            var source = new EventSource('/serverevents');
+
+            source.addEventListener('message', function(e) {
+                console.log(e.data);
+            }, false);
+
+
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<H1>I'm the hello.html page</H1>
+
+<script src="js/vendors/jquery.js"></script>
+<script src="js/vendors/underscore.js"></script>
+<script src="js/vendors/backbone.js"></script>
+
+<script>
+    $(function (){
+
+        window.User = Backbone.Model.extend({
+            urlRoot :"/users"
+        });
+
+        window.Users = Backbone.Collection.extend({
+            url :"/users",
+            model : User
+        });
+
+        /*
+
+        window.bob = new User({
+            firstName:"Bob", lastName:'Morane'
+        });
+
+        bob.save({},{
+        	success:function(data) {
+        		console.log("data",data);
+        	},
+        	error:function(err) {
+        		console.log("error",err);
+        	}
+        });
+        */
+
+    });
+
+</script>

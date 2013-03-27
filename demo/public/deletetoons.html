@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Fast!>>Forward:[Golo]</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+</head>
+
+<body style="visibility:hidden">
+
+<script src="js/vendors/jquery.js"></script>
+<script src="js/vendors/underscore.js"></script>
+<script src="js/vendors/backbone.js"></script>
+
+<script>
+
+    window.TinyToon = Backbone.Model.extend({
+        urlRoot : "/tinytoons",
+        defaults : {
+            x : 0, y : 0
+        }, 
+        start : function() {
+            $.get("/start"+this.urlRoot+"/"+this.get("id"), function(data) {
+                console.log(data)
+            })
+        }
+    });
+
+    window.TinyToons = Backbone.Collection.extend({
+        url : "/tinytoons",
+        model : TinyToon
+    });
+
+
+    $(function (){
+
+        $("body").css("visibility","visible");  /*<body style="visibility:hidden">*/
+
+        window.toons = new TinyToons();
+        
+        toons.fetch({success:function(){
+
+            _.each(_.toArray(toons.models), function(toon){ 
+                console.log(toon); 
+                toon.destroy({success:function(){}});
+                
+            })
+
+        }})
+
+        
+
+    });
+
+</script>
+
+<style>
+    body {
+        margin: 20px;
+    }
+</style>
+
+</body>
+</html>

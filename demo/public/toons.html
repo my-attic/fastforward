@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Fast!>>Forward:[Golo]</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+</head>
+
+<body style="visibility:hidden">
+
+
+<script type="text/template" id="toonstpl">
+    <ul>
+    <% _.each(tinytoons, function(toon) { %> 
+        <li><h4><%= toon.firstName %> <%= toon.lastName %> <%= toon.x %> <%= toon.y %></h4></li>
+    <% }); %>
+    </ul>
+</script>
+
+
+<div id="toons"></div>
+
+
+
+<script src="js/vendors/jquery.js"></script>
+<script src="js/vendors/underscore.js"></script>
+<script src="js/vendors/backbone.js"></script>
+<script src="js/vendors/raphael-min.js"></script>
+<script src="js/vendors/async.js"></script>
+
+<script>
+
+
+    window.TinyToon = Backbone.Model.extend({
+        urlRoot : "/tinytoons",
+        defaults : {
+            x : 0, y : 0
+        }, 
+        initialize : function() {
+            var that = this;
+            this.circle = paper.circle(this.get("x"), this.get("y"), 20);
+            this.circle.attr("stroke", "#fff"); 
+            this.circle.mouseover(function(){
+                console.log("####",that.get("firstName"),"####")
+            })  
+        },
+        start : function() {
+            $.get("/start"+this.urlRoot+"/"+this.get("id"), function(data) {
+                console.log(data)
+            })
+        },
+        transform : function() {
+            this.circle.attr("fill", "#"+((1<<24)*Math.random()|0).toString(16));
+            this.circle.transform("t"+this.get("x")+","+this.get("y"))
+
+        }
+    });
+
+    window.TinyToons = Backbone.Collection.extend({
+        url : "/tinytoons",
+        model : TinyToon
+    });
+
+
+    window.ToonsView = Backbone.View.extend({
+        el: $("#toons"),
+        initialize : function() {
+            this.template = _.template($("#toonstpl").html());
+            _.bindAll(this, "render");
+            this.collection.bind("change", this.render);
+        },
+        render : function() {
+            var content = this.template({tinytoons:this.collection.toJSON()});
+            $(this.el).html(content);
+            return this;
+        }
+    })
+
+
+    function bootstrap(coll, callback) {
+        var i = 0
+        window.babs     = new TinyToon({firstName:"Babs", lastName:"Bunny"})
+        window.buster   = new TinyToon({firstName:"Buster", lastName:"Bunny"})
+        window.elmyra   = new TinyToon({firstName:"Elmyra", lastName:"Duff"})
+        window.plucky   = new TinyToon({firstName:"Plucky", lastName:"Duck"})
+        window.dizzy    = new TinyToon({firstName:"Dizzy", lastName:"Devil"})
+        window.hamton   = new TinyToon({firstName:"Hamton", lastName:"J. Pig"});
+        window.shirley  = new TinyToon({firstName:"Shirley", lastName:"the Loon"});
+        window.fifi     = new TinyToon({firstName:"Fifi", lastName:"La Fume"});
+        window.sweetie  = new TinyToon({firstName:"Sweetie", lastName:"Bird"});
+        window.calamity = new TinyToon({firstName:"Calamity", lastName:"Coyote"});
+        window.little   = new TinyToon({firstName:"Little", lastName:"Beeper"});
+        window.gogo     = new TinyToon({firstName:"Gogo", lastName:"Dodo"});
+        window.montana  = new TinyToon({firstName:"Montana", lastName:"Max"});
+
+        coll.add([babs, buster, elmyra, plucky, dizzy, hamton, shirley, fifi, sweetie, calamity, little, gogo, montana])
+
+            toons.each(function(toon) {
+                console.log("--->", toon.get("firstName"))
+                toon.save({},{success:function(){
+                    //console.log(toon.toJSON());
+                    i+=1;
+                    if(i>=13) { if (callback) callback(null, toon); }
+                }}); 
+            })         
+    }
+
+    function show() {
+
+            console.log("toons loaded, ...")
+
+            toons.each(function(toon) { 
+                toon.start(); 
+
+            })
+
+            source.addEventListener('message', function(e) {
+
+                infos = JSON.parse(e.data)
+
+                infos.forEach(function(info) {
+                    var toon = toons.get(info.id)
+                    toon.set({x:info.x, y:info.y})
+                    toon.transform()
+                    console.log(toon.toJSON());
+                })
+                
+            }, false);
+
+            window.toonsView = new ToonsView({ collection: toons })
+
+            toonsView.render()
+    }
+
+
+    $(function (){
+
+        $("body").css("visibility","visible");  /*<body style="visibility:hidden">*/
+
+        window.paper = Raphael(250, 10, 600, 600);
+
+        window.source = new EventSource('/listen/tinytoons');
+
+        window.toons = new TinyToons();
+        window.infos = null;
+        
+        toons.fetch({success:function(){
+
+            show()
+                
+
+        }, error:function(){
+            if(toons.length==0) {
+                console.log("--- CREATE TOONS ---");
+                bootstrap(toons, function() {
+                    show()    
+                })
+            }
+
+        }})
+
+    });
+
+
+
+
+
+</script>
+
+<style>
+    body {
+        margin: 20px;
+    }
+</style>
+
+</body>
+</html>
