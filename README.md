@@ -33,8 +33,6 @@ See `app/parameters.golo` :
 - OSX & TUX : `./ff.sh name_of_application` 
 - Windows : `./ff.sh` with Cygwin, *yes i know ...*
 
-**Don't forget to set classpath for jedis jar driver.**
-
 ##Demos
 
 ###First :
