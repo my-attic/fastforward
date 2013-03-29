@@ -11,9 +11,9 @@ Fast!>>Forward is a tiny Web application server with Redis database for Single P
 - install Golo : [http://golo-lang.org/](http://golo-lang.org/) and set your path
 - `git clone https://github.com/k33g/fastforward.git`
 
-##How to parameter the application
+##How to parametrize the application
 
-See `app/parameters.golo` :
+See `<name_of_application>/app/parameters.golo` :
 
 	module parameters
 
@@ -30,8 +30,8 @@ See `app/parameters.golo` :
 
 ##How to launch the application
 
-- OSX & TUX : `./ff.sh name_of_application` 
-- Windows : `./ff.sh` with Cygwin, *yes i know ...*
+- OSX & TUX : `./ff.sh <name_of_application>` 
+- Windows : `./ff.sh <name_of_application>` with Cygwin, *yes i know ...*
 
 ##Demos
 
