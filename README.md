@@ -41,7 +41,7 @@ To run it : `./ff.sh mykillerapp`
 
 In `mykillerapp/app/controllers` create a new file `mycontroller.golo` :
 
-{% highlight coffeescript %}
+```coffeescript
 	module mycontroller
 
 	#golo modules
@@ -56,7 +56,7 @@ In `mykillerapp/app/controllers` create a new file `mycontroller.golo` :
 	            ContentType(): HTML()
 	        )
 	    })
-{% endhighlight %}
+```
 
 - Definition of `Flow()` is in `libs/content.golo`
 - Definition of `ContentType()()` is in `libs/constants.golo`
