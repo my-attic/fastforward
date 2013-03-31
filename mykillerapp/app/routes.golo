@@ -6,6 +6,8 @@ import mycontroller
 
 #=== ROUTES ===
 function action = |route, httpConnection| -> match {
+	when route: startsWith("GET:/hello/")      then mycontroller(): sayHello(httpConnection)
+	when route: startsWith("DELETE:/goodbye/") then mycontroller(): sayGoodBye(httpConnection)
 	when route: equals("GET:/display")      then mycontroller(): displaySomething(httpConnection)
 	when route: equals("GET:/json")      	then mycontroller(): giveMeJsonObject(httpConnection)
     when route: equals("GET:/about")        then application(): about(httpConnection)
