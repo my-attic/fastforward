@@ -11,6 +11,30 @@ Fast!>>Forward is a tiny Web application server with Redis database for Single P
 - install Golo : [http://golo-lang.org/](http://golo-lang.org/) and set your path
 - `git clone https://github.com/k33g/fastforward.git`
 
+##Create a new application
+
+Type : `./ff.sh new <name_of_application> <name_of_template>`, ie : `./ff.sk mykillerapp jquery.tpl`
+
+You obtain a new Fast!>>Forward application :
+
+	-- mykillerapp\
+	              |- parameters.golo
+	              |- routes.golo
+	              |- app\
+	              |     |- contollers\
+	              |     |            |- application.golo
+	              |     |- models
+	              |
+	              |- public\
+	                        |- index.html
+	                        |- favicon.ico
+	                        |- css (stylesheets directory, comes with twitter bootstrap and font awesome)
+	                        |- font
+	                        |- js\
+	                              |- vendors (comes at least with jQuery)
+
+
+
 ##How to parametrize the application
 
 See `<name_of_application>/app/parameters.golo` :
