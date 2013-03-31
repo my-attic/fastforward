@@ -33,6 +33,107 @@ You obtain a new Fast!>>Forward application :
 	                        |- js\
 	                              |- vendors (comes at least with jQuery)
 
+To run it : `./ff.sh mykillerapp`
+
+###Create a controller
+
+####Serve HTML Content
+
+In `mykillerapp/app/controllers` create a new file `mycontroller.golo` :
+
+	module mycontroller
+
+	#golo modules
+	import content
+	import constants
+
+	function mycontroller = -> DynamicObject():
+	    define("displaySomething", |this, httpConnection|{
+
+	        return Flow(): init(
+	            "<h1>This is a message from mycontroller</h1>", 
+	            ContentType(): HTML()
+	        )
+	    })
+
+- Definition of `Flow()` is in `libs/content.golo`
+- Definition of `ContentType()()` is in `libs/constants.golo`
+
+
+You have to had a route : edit `mykillerapp/app/routes.golo` and 
+
+- add `import mycontroller`
+- add new route `when route: equals("GET:/display") then mycontroller(): displaySomething(httpConnection)`
+
+
+	module routes
+
+	#golo modules : controllers
+	import application
+	import mycontroller
+
+	#=== ROUTES ===
+	function action = |route, httpConnection| -> match {
+		when route: equals("GET:/display")      then mycontroller(): displaySomething(httpConnection)
+	    when route: equals("GET:/about")        then application(): about(httpConnection)
+	    when route: equals("GET:/aboutjson")    then application(): about_json(httpConnection)
+	    when route: equals("GET:/abouttxt")     then application(): about_txt(httpConnection)
+	    otherwise null
+	}
+
+You can now run the application : `./ff.sh mykillerapp` and call [http://localhost:9090/display](http://localhost:9090/display)
+
+####Serve JSON Content
+
+Add a new method `giveMeJsonObject` to `mycontroller` :
+
+	module mycontroller
+
+	#golo modules
+	import content
+	import constants
+
+	function mycontroller = -> DynamicObject():
+	    define("displaySomething", |this, httpConnection|{
+
+	        return Flow(): init(
+	            "<h1>This is a message from mycontroller</h1>", 
+	            ContentType(): HTML()
+	        )
+	    }):
+	    define("giveMeJsonObject", |this, httpConnection|{
+
+	        return Flow(): init(
+	            "{\"firstName\":\"Bob\",\"lastName\":\"Morane\"}", 
+	            ContentType(): JSON()
+	        )
+	    })    
+
+Add a new route to `routes.golo` : `when route: equals("GET:/json") then mycontroller(): giveMeJsonObject(httpConnection)`
+
+	module routes
+
+	#golo modules : controllers
+	import application
+	import mycontroller
+
+	#=== ROUTES ===
+	function action = |route, httpConnection| -> match {
+		when route: equals("GET:/display")      then mycontroller(): displaySomething(httpConnection)
+		when route: equals("GET:/json")      	then mycontroller(): giveMeJsonObject(httpConnection)
+	    when route: equals("GET:/about")        then application(): about(httpConnection)
+	    when route: equals("GET:/aboutjson")    then application(): about_json(httpConnection)
+	    when route: equals("GET:/abouttxt")     then application(): about_txt(httpConnection)
+	    otherwise null
+	}
+
+You can now run the application : `./ff.sh mykillerapp` and call [http://localhost:9090/json](http://localhost:9090/json). 
+
+You can call it too with ajax request (thanks to jQuery), like that :
+
+	$.getJSON("json", function(data) { console.log(data.firstName, data.lastName)})
+
+###REST API : query parameters
 
 
 ##How to parametrize the application
