@@ -66,20 +66,20 @@ You have to had a route : edit `mykillerapp/app/routes.golo` and
 - add new route `when route: equals("GET:/display") then mycontroller(): displaySomething(httpConnection)`
 
 
-	module routes
+		module routes
 
-	#golo modules : controllers
-	import application
-	import mycontroller
+		#golo modules : controllers
+		import application
+		import mycontroller
 
-	#=== ROUTES ===
-	function action = |route, httpConnection| -> match {
-		when route: equals("GET:/display")      then mycontroller(): displaySomething(httpConnection)
-	    when route: equals("GET:/about")        then application(): about(httpConnection)
-	    when route: equals("GET:/aboutjson")    then application(): about_json(httpConnection)
-	    when route: equals("GET:/abouttxt")     then application(): about_txt(httpConnection)
-	    otherwise null
-	}
+		#=== ROUTES ===
+		function action = |route, httpConnection| -> match {
+			when route: equals("GET:/display")      then mycontroller(): displaySomething(httpConnection)
+		    when route: equals("GET:/about")        then application(): about(httpConnection)
+		    when route: equals("GET:/aboutjson")    then application(): about_json(httpConnection)
+		    when route: equals("GET:/abouttxt")     then application(): about_txt(httpConnection)
+		    otherwise null
+		}
 
 You can now run the application : `./ff.sh mykillerapp` and call [http://localhost:9090/display](http://localhost:9090/display)
 
