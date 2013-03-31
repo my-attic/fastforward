@@ -33,5 +33,13 @@ function mycontroller = -> DynamicObject():
             "<h1>Good Bye " + param + "</h1>",  
             ContentType(): HTML()
         )
-    })
+    }):
+    define("postInfos", |this, httpConnection| {
+        var values = httpConnection: postValues()
+        println(values)
+        return Flow(): init(
+            values, 
+            ContentType(): JSON()
+        )
+    })   
 

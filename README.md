@@ -191,6 +191,9 @@ Add a 2 new methods `sayHello` and `sayGoodBye` to `mycontroller`, and import `h
 	}
 ```
 
+**Info :** : use `httpConnection: getParameters("/hello/")` to get parameter
+
+
 Add a new routes to `routes.golo` : 
 
 ```coffeescript
@@ -207,28 +210,59 @@ You can now run the application : `./ff.sh mykillerapp` and test routes in conso
 
 ####POST (or PUT) data
 
-
-
-
-
-Add a new method `` to `mycontroller` :
+Add a new method `postInfos` to `mycontroller` :
 
 ```coffeescript
+    define("postInfos", |this, httpConnection| {
+        var values = httpConnection: postValues()
+        println(values)
+        return Flow(): init(
+            values, 
+            ContentType(): JSON()
+        )
+    })   
 ```
 
-Add a new route to `routes.golo` : ``
+**Info :** : use `httpConnection: postValues()` to get post values
+
+Add a new route to `routes.golo` :
 
 ```coffeescript
+	when route: startsWith("POST:/infos")     then mycontroller(): postInfos(httpConnection)
 ```
 
-You can now run the application : `./ff.sh mykillerapp` and call [http://localhost:9090/](http://localhost:9090/). 
+You can now run the application : `./ff.sh mykillerapp` and test routes in console browser with ajax request (thanks to jQuery) :
 
-You can call it too with ajax request (thanks to jQuery), like that :
+	$.ajax({
+		type:"POST", 
+		url:"infos", 
+		dataType:"JSON", 
+		data:'{"firstName":"Bob","lastName":"Morane"}', 
+		success:function(data){console.log(data);}
+	})
 
 
 ##HTML DSL
 
-*to be continued ...*
+Fast!>>forward comes with a little html dsl (in progress), like this :
+
+```coffeescript
+    html(): 
+        $(head(): 
+                $(title(): innerText("Hello"))
+        ):
+        $(body(): 
+                $(div(): style("border:solid; border-color:red"):
+                    $(h1(): style("color:green;"): innerHTML(message)):
+                    $(h2(): style("color:blue;"): innerHTML(otherMessage))
+                ):
+                $(p():innerHTML("yes, i know, it's creepy"))
+            ):
+        gen()
+```
+
+**Info :** see it in action with `simple` sample and `simple/app/views/little.golo`.
+
 
 ##Workers
 
@@ -272,7 +306,7 @@ See `<name_of_application>/app/parameters.golo` :
 
 **Don't forget to launch Redis !!!**
 
-- `./ff.sh sansbox`
+- `./ff.sh sandbox`
 - try [http://localhost:8080/](http://localhost:8080/)
 - try [http://localhost:8080/toons.html](http://localhost:8080/toons.html)
 - try [http://localhost:8080/pi](http://localhost:8080/pi)
