@@ -20,7 +20,7 @@ if [ "$1" == "new" ]
 				for jar in $FILES
 				do
 					JARS="$JARS$PWD/$jar:"
-					#echo "--> $jar"
+					echo "--> $jar"
 				done
 
 				echo "2- loading application jars"

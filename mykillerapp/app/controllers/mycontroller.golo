@@ -1,5 +1,8 @@
 module mycontroller
 
+import fastforward.java.extensions.Json
+import java.util.HashMap
+
 #golo modules
 import content
 import constants
@@ -39,6 +42,23 @@ function mycontroller = -> DynamicObject():
         println(values)
         return Flow(): init(
             values, 
+            ContentType(): JSON()
+        )
+    }):
+    define("giveMeBigJsonObject", |this, httpConnection| {
+        var human = HashMap()
+        var address = HashMap()
+
+        address: put("street", "Champs-Elysées")
+        address: put("town", "Paris")
+
+        human: put("firstName","Bob")
+        human: put("lastName","Morane")
+        human: put("address", address)
+
+        println(human)
+        return Flow(): init(
+            Json.stringify(Json.toJson(human)), 
             ContentType(): JSON()
         )
     })   

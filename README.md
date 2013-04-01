@@ -263,6 +263,66 @@ Fast!>>forward comes with a little html dsl (in progress), like this :
 
 **Info :** see it in action with `simple` sample and `simple/app/views/little.golo`.
 
+##Fast!>>forward java extensions
+
+Fast!>> comes with "java extensions" thanks to `fastforward.java.extensions-1.0-jar-with-dependencies.jar` (you can find it in `jars` directory). This jar embeds :
+
+- jackson 1.9.11 (to cast or stringify json objcets)
+- jedis (redis client)
+- Json.java (jackson helper) 
+- *to be continued ...*
+
+###JSON
+
+Thanks to Fast!>> java extensions you can play with JSON as with Play!>. Try this :
+
+####"GET" Json object
+
+Add a new method to our controller :
+
+```coffeescript
+    define("giveMeBigJsonObject", |this, httpConnection| {
+        var human = HashMap()
+        var address = HashMap()
+
+        address: put("street", "Champs-Elysées")
+        address: put("town", "Paris")
+
+        human: put("firstName","Bob")
+        human: put("lastName","Morane")
+        human: put("address", address)
+
+        println(human)
+        return Flow(): init(
+            Json.stringify(Json.toJson(human)), 
+            ContentType(): JSON()
+        )
+    })   
+```
+
+Add a new route to `routes.golo` :
+
+```coffeescript
+	when route: equals("GET:/bigjson") then mycontroller(): giveMeBigJsonObject(httpConnection)
+```
+
+You can now run the application : `./ff.sh mykillerapp` and try this in the console :
+
+$.ajax({type:"GET", url:"bigjson", success:function(data){console.log(data);}})
+
+and you get this :
+
+	{"firstName":"Bob","address":{"town":"Paris","street":"Champs-Elysées"},"lastName":"Morane"}
+
+
+####"POST" Json object
+
+*to be continued ...*
+
+###Redis
+
+*to be continued ...*
+
 
 ##Workers
 
@@ -272,15 +332,6 @@ Fast!>>forward comes with a little html dsl (in progress), like this :
 
 *to be continued ...*
 
-##Fast!>>forward java extensions
-
-###JSON
-
-*to be continued ...*
-
-###Redis
-
-*to be continued ...*
 
 ###...
 
