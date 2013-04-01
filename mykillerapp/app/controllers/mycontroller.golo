@@ -61,5 +61,5 @@ function mycontroller = -> DynamicObject():
             Json.stringify(Json.toJson(human)), 
             ContentType(): JSON()
         )
-    })   
+    })
 

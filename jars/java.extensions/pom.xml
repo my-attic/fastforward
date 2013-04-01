@@ -55,6 +55,12 @@
             <id>codehaus-snapshots</id>
             <url>http://snapshots.repository.codehaus.org</url>
         </repository>
+        <!--
+        <repository>
+            <id>jade4j-releases</id>
+            <url>https://raw.github.com/neuland/jade4j/master/releases</url>
+        </repository>
+        -->   
     </repositories>
     <dependencies>
 
@@ -70,6 +76,13 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+        <!--
+        <dependency>
+          <groupId>de.neuland</groupId>
+          <artifactId>jade4j</artifactId>
+          <version>0.3.10</version>
+        </dependency>
+        -->
     </dependencies>
 
 </project>

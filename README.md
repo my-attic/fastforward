@@ -1,6 +1,7 @@
 #Fast!>>Forward NextGen.
 
 > Speedy Web Framework for Golo
+> *made to make SPWA*
 
 ![FF](https://raw.github.com/k33g/fastforward/master/logo.png)
 
@@ -248,7 +249,7 @@ You can now run the application : `./ff.sh mykillerapp` and test routes in conso
 
 ##HTML DSL
 
-Fast!>>forward comes with a little html dsl (in progress), like this :
+Fast!>>forward comes with a little html dsl (in progress and justfor fun), like this :
 
 ```coffeescript
     html(): 
@@ -266,6 +267,10 @@ Fast!>>forward comes with a little html dsl (in progress), like this :
 ```
 
 **Info :** see it in action with `simple` sample and `simple/app/views/little.golo`.
+
+##Templating
+
+Why ? Do you know "Single Page Web Applications" ? [http://www.manning.com/mikowski/](http://www.manning.com/mikowski/)
 
 ##Fast!>>forward java extensions
 
