@@ -18,7 +18,9 @@ Fast!>>Forward is a tiny Web application server with Redis database for Single P
 
 ##Create a new application
 
-Type : `./ff.sh new <name_of_application> <name_of_template>`, ie : `./ff.sk mykillerapp jquery.tpl`
+Type : `./ff.sh new <name_of_application> <name_of_template>`, ie : `./ff.sh mykillerapp jquery.tpl`
+
+> jquery.tpl is a project application template, more to come
 
 You obtain a new Fast!>>Forward application :
 
