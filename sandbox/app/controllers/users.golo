@@ -6,13 +6,13 @@ import java.util.LinkedList
 import java.util.UUID
 import java.lang.StringBuilder
 import java.lang.String
+import fastforward.java.extensions.Json
 
 #golo modules
 import content
 import html
 import constants
 import httpconnection
-import json
 import user
 
 #http://localhost:8080/users
@@ -31,7 +31,7 @@ function users_all = |arg| {
     
     return Flow(): 
         init(
-            JSON(): simpleListStringify(modelsList), 
+            Json.stringify(Json.toJson(modelsList)), 
             ContentType(): JSON()
         )
 }
@@ -47,7 +47,7 @@ function users_byId = |httpConnection| {
         userFieldsHashMap: remove("password")
         return Flow(): 
                 init(
-                    JSON(): simpleStringify(userFieldsHashMap), 
+                    Json.stringify(Json.toJson(userFieldsHashMap)), 
                     ContentType(): JSON()
                 )
     } catch(e) {
@@ -70,7 +70,7 @@ function users_delete = |httpConnection| {
 
     return Flow(): 
             init(
-                JSON(): simpleStringify(myUser: fields()), 
+                Json.stringify(Json.toJson(myUser: fields())), 
                 ContentType(): JSON()
             )
 }
@@ -82,14 +82,15 @@ function users_delete = |httpConnection| {
 function users_create = |httpConnection| {
      
     var values = httpConnection: postValues()
-    var modelFieldsHashMap = JSON(): simpleParse(values) #return hashmap from json string
+    var modelFieldsJsonNode = Json.parse(values) 
+    var modelFieldsHashMap = Json.fromJson(modelFieldsJsonNode, HashMap.class)
 
     var myUser = user(): init(modelFieldsHashMap)
     myUser: save()
 
     return Flow(): 
             init(
-                JSON(): simpleStringify(myUser: fields()), 
+                Json.stringify(Json.toJson(myUser: fields())), 
                 ContentType(): JSON()
             )
 }
@@ -101,14 +102,16 @@ function users_update = |httpConnection| {
     var values = httpConnection: postValues()
     var id = httpConnection: getParameters("/users/") 
     
-    var modelFieldsHashMap = JSON(): simpleParse(values) #return hashmap from json string
+    var modelFieldsJsonNode = Json.parse(values) 
+    var modelFieldsHashMap = Json.fromJson(modelFieldsJsonNode, HashMap.class)
+
     var myUser = user(): init(modelFieldsHashMap)
 
     myUser: save()
 
     return Flow(): 
             init(
-                JSON(): simpleStringify(myUser: fields()), 
+                Json.stringify(Json.toJson(myUser: fields())), 
                 ContentType(): JSON()
             )
 }

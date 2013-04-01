@@ -7,10 +7,10 @@ import java.util.LinkedList
 import java.util.UUID
 
 import redis.clients.jedis.Jedis
+import fastforward.java.extensions.Json
 
 #golo modules
 import parameters
-import json
 
 function db = -> DynamicObject():
     helper(Jedis(Parameters(): REDIS()))
@@ -23,20 +23,12 @@ pimp java.util.HashMap {
   }
 }
 
-#JSON(): simpleStringify(jsonObject) -> return string from a hashmap
-#JSON(): simpleParse(values) -> return hashMap from a string
-
 function r_model = -> DynamicObject():
 	kind("something"):
     fields(HashMap()):
     define("init", |this, kind, fields| {
     	this: kind(kind)
         this: fields(fields)
-        return this
-    }):
-    define("toJSONString", |this| -> JSON(): simpleStringify(this: fields())):
-    define("fromJSONString", |this, jsonString| {
-        this: fields(JSON(): simpleParse(jsonString))
         return this
     }):
     define("getField", |this, fieldName| -> this: fields(): get(fieldName)):
@@ -98,7 +90,10 @@ function r_model = -> DynamicObject():
 
         try {
             #db(): helper(): set(key, this: stringify())
-            var stringToSave = JSON(): simpleStringify(this: fields()) 
+
+            var stringToSave = Json.stringify(Json.toJson(this: fields()))
+
+
             db(): helper(): set(key, stringToSave)
             println("Saving Key : "+ key)
             println("Saving model fields : "+ stringToSave)
@@ -118,7 +113,9 @@ function r_model = -> DynamicObject():
         #println("### allKeys ### "+ allKeys)
 
         foreach (key in allKeys) {
-            var modelHashMap = JSON(): simpleParse(db(): helper(): get(key))
+
+            var modelJsonNode =  Json.parse(db(): helper(): get(key))
+            var modelHashMap = Json.fromJson(modelJsonNode, HashMap.class)
 
             #println("### modelHashMap ### "+ modelHashMap)
 
@@ -133,7 +130,10 @@ function r_model = -> DynamicObject():
         var modelsList = LinkedList()
         var allKeys = db(): helper(): keys(this: kind()+queryString)
         foreach (key in allKeys) {
-            var modelHashMap = JSON(): simpleParse(db(): helper(): get(key))
+
+            var modelJsonNode =  Json.parse(db(): helper(): get(key))
+            var modelHashMap = Json.fromJson(modelJsonNode, HashMap.class)
+            
             var model = r_model(): init(this: kind(), modelHashMap)
             #modelsList: add(modelHashMap)
             modelsList: add(model)
