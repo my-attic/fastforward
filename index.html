@@ -1,74 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>[Fast!>>|]</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/github.css">
+</head>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Fastforward : tiny Web application server with Redis database for Single Page Applications" />
+<body style="visibility:hidden">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <div class="container-fluid">
 
-    <title>Fastforward</title>
-  </head>
+        <div class="hero-unit" style="padding-top:15px; padding-bottom:15px;">
+            <h1>Fast <i class="icon-exclamation-sign" style="font-size:80%"></i> <i class="icon-fast-forward" style="font-size:80%"></i> forward</h1>
+            <h2>Speedy Web Framework for <a href="http://golo-lang.org/">Golo</a></h2>
+            <h3>Born to make Single Page Applications.</h3>
+            <h5>Completely inspired by <a href="http://www.playframework.com/">Play <i class="icon-play"></i></a></h5>
+            <span><i class="icon-github-alt"></i> <a href="https://github.com/k33g/fastforward">Fork this site on GitHub</a></span>
+            <h4><i class="icon-hand-right"></i> Pull Requests accepted</h4>
+        </div>        
+        <!-- template -->
+        <script type="text/template" id="rubrics_tpl">
 
-  <body>
+        </script>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/k33g/fastforward">View on GitHub</a>
+        <div class="row-fluid">
+            <div> <!--controller-->
+                <h2>Controller</h2>
+                <pre><code data-language="generic" id="config" style="font-size: 110%;">
+module mycontroller
 
-          <h1 id="project_title">Fastforward</h1>
-          <h2 id="project_tagline">tiny Web application server with Redis database for Single Page Applications</h2>
+import fastforward.java.extensions.Json
+import java.util.HashMap
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/k33g/fastforward/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/k33g/fastforward/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+#golo modules
+import content
+import constants
+import httpconnection
+
+function mycontroller = -> DynamicObject():
+    define("postInfos", |this, httpConnection| {
+        var values = httpConnection: postValues()
+        println(values)
+        return Flow(): init(
+            values, 
+            ContentType(): JSON()
+        )
+    }):
+    define("giveMeBigJsonObject", |this, httpConnection| {
+        var human = HashMap()
+        var address = HashMap()
+
+        address: put("street", "Champs-Elysées")
+        address: put("town", "Paris")
+
+        human: put("firstName","Bob")
+        human: put("lastName","Morane")
+        human: put("address", address)
+
+        println(human)
+        return Flow(): init(
+            Json.stringify(Json.toJson(human)), 
+            ContentType(): JSON()
+        )
+    })
+                </code></pre>
+            </div> <!-- end controller-->
+
+            <div> <!--routes-->
+                <h2>Routes</h2>
+                <pre><code data-language="generic" id="config" style="font-size: 110%;">
+module routes
+
+#golo modules : controllers
+import application
+import mycontroller
+
+#=== ROUTES ===
+function action = |route, httpConnection| -> match {
+    when route: startsWith("POST:/infos")      then mycontroller(): postInfos(httpConnection)
+    when route: equals("GET:/bigjson")         then mycontroller(): giveMeBigJsonObject(httpConnection)
+    otherwise null
+}
+                </code></pre>
+            </div><!-- end routes-->
+
+            <div> <!--html-->
+                <h2>HTML side</h2>
+                <pre><code data-language="generic" id="config" style="font-size: 110%;">
+//POST
+$.ajax({
+    type : "POST", 
+    url : "infos", 
+    dataType : "JSON", 
+    data : '{"firstName":"Bob","lastName":"Morane"}', 
+    success : function (data) {
+        console.log(data);
+    }
+});
+
+//GET
+$.ajax({
+    type : "GET", 
+    url : "bigjson", 
+    success : function (data) {
+        console.log(data);
+    }
+});
+
+                </code></pre>
+            </div><!-- end html-->
+
+            <div> <!--server send events-->
+                <h2>HTML5 Server Send Events</h2>
+                <pre><code data-language="generic" id="config" style="font-size: 110%;">
+#to be continued ...
+                </code></pre>
+            </div><!-- end server send events-->
+
+            <div> <!--workers-->
+                <h2>Workers</h2>
+                <pre><code data-language="generic" id="config" style="font-size: 110%;">
+#to be continued ...
+                </code></pre>
+            </div><!-- end workers-->
+
+            <div> <!--html dsl-->
+                <h2>HTML DSL</h2>
+                <pre><code data-language="generic" id="config" style="font-size: 110%;">
+html(): 
+    $(head(): 
+            $(title(): innerText("Hello"))
+    ):
+    $(body(): 
+            $(div(): style("border:solid; border-color:red"):
+                $(h1(): style("color:green;"): innerHTML(message)):
+                $(h2(): style("color:blue;"): innerHTML(otherMessage))
+            ):
+            $(p():innerHTML("yes, i know, it's creepy"))
+        ):
+    gen()
+                </code></pre>
+            </div><!-- end html dsl-->
+
+        </div>
+
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+    <script  type="text/javascript" src="js/vendors/jquery-1.9.1.min.js"></script>
+    <script  type="text/javascript" src="js/vendors/underscore-min.js"></script>
+    <script  type="text/javascript" src="js/vendors/backbone-min.js"></script>
+    <script src="js/vendors/rainbow.min.js"></script>
+    <script src="js/vendors/generic.js"></script>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+    <script>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
-<h3>Designer Templates</h3>
+        $(function (){
+            Rainbow.color();
+            $("body").css("visibility","visible");  /*<body style="visibility:hidden">*/
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+        });
 
-<h3>Rather Drive Stick?</h3>
+    </script>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
 
-<h3>Authors and Contributors</h3>
+    <script type="text/javascript">
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-11383603-11']);
+      _gaq.push(['_trackPageview']);
 
-<h3>Support or Contact</h3>
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
+    </script>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Fastforward maintained by <a href="https://github.com/k33g">k33g</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+</body>
 </html>
