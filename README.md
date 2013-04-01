@@ -336,8 +336,11 @@ and you get this :
 
 *to be continued ...*
 
+##httpConnection object
 
-###...
+*to be continued ...*
+
+##...
 
 *to be continued ...*
 
