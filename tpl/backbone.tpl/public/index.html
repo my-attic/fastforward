@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Fast!>>Forward:[Golo]</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+</head>
+
+<body style="visibility:hidden">
+
+    <h1>Backbone Template</h1>
+    <a href="/about">about ...</a>
+
+    <h2>plain text message : <span></span></h2>
+    <h3>json message : <span></span></h3>
+
+    <script src="js/vendors/jquery-1.9.1.min.js"></script>
+    <script src="js/vendors/backbone-min.js"></script>
+    <script src="js/vendors/underscore-min.js"></script>
+
+    <script>
+        $(function (){
+
+            $("body").css("visibility","visible");  /*<body style="visibility:hidden">*/
+
+            $.get("abouttxt", function(data) {
+                console.log(data)
+                $("h2 > span").html(data)
+            });
+
+            $.getJSON("aboutjson", function(data) {
+                console.log(data)
+                $("h3 > span").html(data.message)
+            });
+
+        });
+
+    </script>
+
+    <style>
+        body {
+            margin: 20px;
+        }
+    </style>
+
+</body>
+</html>

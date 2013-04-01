@@ -21,7 +21,8 @@ Fast!>>Forward is a tiny Web application server with Redis database for Single P
 
 Type : `./ff.sh new <name_of_application> <name_of_template>`, ie : `./ff.sh mykillerapp jquery.tpl`
 
-> jquery.tpl is a project application template, more to come
+> **jquery.tpl** is a project application template, 
+> you have **backbone.tpl** too, more to come
 
 You obtain a new Fast!>>Forward application :
 
@@ -352,6 +353,10 @@ and you get this :
 *to be continued ...*
 
 ##...
+
+*to be continued ...*
+
+##A CRUD application
 
 *to be continued ...*
 

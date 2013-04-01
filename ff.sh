@@ -5,9 +5,9 @@
 #
 if [ "$1" == "new" ]
 	then
-		#CREATE WEB APP FROM TEMPLATE
+		#CREATE WEB APP FROM TEMPLATE ./ff.sh new app_name tpl_name
 		echo "new $2 from $3"
-		cp -r $3 $2
+		cp -r tpl/$3 $2
 	else
 		if [ "$1" != "" ]
 			then
