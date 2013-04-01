@@ -318,7 +318,7 @@ Add a new route to `routes.golo` :
 
 You can now run the application : `./ff.sh mykillerapp` and try this in the console :
 
-$.ajax({type:"GET", url:"bigjson", success:function(data){console.log(data);}})
+	$.ajax({type:"GET", url:"bigjson", success:function(data){console.log(data);}})
 
 and you get this :
 
