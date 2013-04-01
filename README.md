@@ -1,11 +1,9 @@
-#Fast!>>Forward NextGen.
+#Fast!>>|Forward NextGen.
 
 > Speedy Web Framework for Golo
 > *made to make SPWA*
 
-![FF](https://raw.github.com/k33g/fastforward/master/logo.png)
-
-Fast!>>Forward is a tiny Web application server with Redis database for Single Page Applications ... or more (ie: workers, server events, ...)
+Fast!>>|Forward is a tiny Web application server with Redis database for Single Page Applications ... or more (ie: workers, server events, ...)
 
 ##How to install ?
 
@@ -24,7 +22,7 @@ Type : `./ff.sh new <name_of_application> <name_of_template>`, ie : `./ff.sh myk
 > **jquery.tpl** is a project application template, 
 > you have **backbone.tpl** too, more to come
 
-You obtain a new Fast!>>Forward application :
+You obtain a new Fast!>>|Forward application :
 
 	-- mykillerapp\
 	              |- parameters.golo
@@ -250,7 +248,7 @@ You can now run the application : `./ff.sh mykillerapp` and test routes in conso
 
 ##HTML DSL
 
-Fast!>>forward comes with a little html dsl (in progress and justfor fun), like this :
+Fast!>>|forward comes with a little html dsl (in progress and justfor fun), like this :
 
 ```coffeescript
     html(): 
@@ -273,9 +271,9 @@ Fast!>>forward comes with a little html dsl (in progress and justfor fun), like 
 
 Why ? Do you know "Single Page Web Applications" ? [http://www.manning.com/mikowski/](http://www.manning.com/mikowski/)
 
-##Fast!>>forward java extensions
+##Fast!>>|forward java extensions
 
-Fast!>> comes with "java extensions" thanks to `fastforward.java.extensions-1.0-jar-with-dependencies.jar` (you can find it in `jars` directory). This jar embeds :
+Fast!>>| comes with "java extensions" thanks to `fastforward.java.extensions-1.0-jar-with-dependencies.jar` (you can find it in `jars` directory). This jar embeds :
 
 - jackson 1.9.11 (to cast or stringify json objcets)
 - jedis (redis client)
@@ -284,7 +282,7 @@ Fast!>> comes with "java extensions" thanks to `fastforward.java.extensions-1.0-
 
 ###JSON
 
-Thanks to Fast!>> java extensions you can play with JSON as with Play!>. Try this :
+Thanks to Fast!>>| java extensions you can play with JSON as with Play!>. Try this :
 
 ####"GET" Json object
 
