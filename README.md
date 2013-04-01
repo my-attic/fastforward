@@ -304,6 +304,12 @@ Add a new method to our controller :
     })   
 ```
 
+**!!! You have to import this :**
+
+- `import fastforward.java.extensions.Json`
+- `import java.util.HashMap`
+
+
 Add a new route to `routes.golo` :
 
 ```coffeescript
