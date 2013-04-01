@@ -1,5 +1,7 @@
 #Fast!>>Forward NextGen.
 
+> Speedy Web Framework for Golo
+
 ![FF](https://raw.github.com/k33g/fastforward/master/logo.png)
 
 Fast!>>Forward is a tiny Web application server with Redis database for Single Page Applications ... or more (ie: workers, server events, ...)
