@@ -384,3 +384,9 @@ See `<name_of_application>/app/parameters.golo` :
 - try [http://localhost:8080/pi](http://localhost:8080/pi)
 - try [http://localhost:8080/serverevents](http://localhost:8080/serverevents)
 - try [http://localhost:8080/servereventswithworker](http://localhost:8080/servereventswithworker)
+
+##License
+
+Fast!>>|Forward is available under the terms of the [MIT-License](http://en.wikipedia.org/wiki/MIT_License#License_terms).
+
+Copyright 2013, Philippe Charrière
