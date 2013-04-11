@@ -40,11 +40,11 @@ function handle = |httpExchange, env, poolWorkers, memory| {
     } catch(e) {
             
         console():brightRed():println("============ ERROR : Handler / handle ============")            
-    	#e: printStackTrace()
-        let message = e: getCause(): toString()
+    	e: printStackTrace()
+        let errorMessage = e: getCause(): toString()
 
-        console():println(message)
-        if message: startsWith("java.net.ConnectException: Connection refused") {
+        console():println(errorMessage)
+        if errorMessage: startsWith("java.net.ConnectException: Connection refused") {
             console():purple():println("did you think to turn on the redis server ?!?")     
         }
 

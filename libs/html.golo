@@ -25,6 +25,8 @@ function tag = -> DynamicObject():
 		var rel = ""
 		var type = ""
 		var href = ""
+		
+		var src = ""
 
 		var datas = ""
 
@@ -50,12 +52,16 @@ function tag = -> DynamicObject():
 		if this: get("cssclass") isnt null {
 			cssclass = " class='"+this: cssclass()+"'"
 		}
+		
+		if this: get("src") isnt null {
+			src = " src='"+this: src()+"'"
+		}
 
 		foreach (m in this: datas()) {
             datas = " "+ datas + m
         }
 
-		this: start(String.format("<%s%s%s%s%s%s%s%s>", this: name(), attrs, datas, style, rel, type, href, cssclass))
+		this: start(String.format("<%s%s%s%s%s%s%s%s%s>", this: name(), attrs, datas, style, rel, type, href, cssclass, src))
 		this: end(String.format("</%s>", this: name()))
 		return this
 	}):	

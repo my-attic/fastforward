@@ -35,6 +35,9 @@ function ffWorker = -> DynamicObject():
         this: id(id)
         this: env(env)
 
+        #TEMPORY FIX 
+        #var message = null
+
         let port =  this: env(): spawn(|message| { 
             this: isFree(false)
             this: message(message)

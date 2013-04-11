@@ -16,7 +16,7 @@ function db = -> DynamicObject():
     helper(Jedis(Parameters(): REDIS()))
 
 #http://www.c2.com/cgi/wiki?DoubleBraceInitialization
-pimp java.util.HashMap {
+augment java.util.HashMap {
   function add = |this, key, value| {
   	this: put(key, value)
   	return this

@@ -32,6 +32,7 @@ function main = |args| {
 
     var env = WorkerEnvironment.builder(): withCachedThreadPool()
     #=== POOL OF WORKERS ===
+    
     var poolWorkers = PoolWorkersManager():init(env, 50)
 
     var memory = HashMap()
