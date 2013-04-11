@@ -378,23 +378,15 @@ See `<name_of_application>/app/parameters.golo` :
 
 **Don't forget to launch Redis !!!**
 
-<<<<<<< HEAD
-- `./ff.sh sandbox`
-- try [http://localhost:8080/](http://localhost:8080/)
-- try [http://localhost:8080/toons.html](http://localhost:8080/toons.html)
-- try [http://localhost:8080/pi](http://localhost:8080/pi)
-- try [http://localhost:8080/serverevents](http://localhost:8080/serverevents)
-- try [http://localhost:8080/servereventswithworker](http://localhost:8080/servereventswithworker)
+- workers sample : `./ff.sh samples/picalc` and try [http://localhost:8080/pi](http://localhost:8080/pi)
+- "full" webapp with Backbone & Knockout + REST API : `./ff.sh samples/webapp` and try [http://localhost:8080/](http://localhost:8080/)
+- Stream Updates with Server-Sent Events (HTML5) : `./ff.sh samples/serverevents` and try [http://localhost:8080/serverevents](http://localhost:8080/serverevents) or [http://localhost:8080/se.html](http://localhost:8080/se.html) (and see console browser) and [http://localhost:8080/servereventswithworker](http://localhost:8080/servereventswithworker) or [http://localhost:8080/sew.html](http://localhost:8080/sew.html) (and see console browser)
+- experiments : `./ff.sh samples/toons` and  try [http://localhost:8080/toons.html](http://localhost:8080/toons.html)
+- html dsl in action : `./ff.sh samples/html` and  try [http://localhost:8080](http://localhost:8080)
 
 ##License
 
 Fast!>>|Forward is available under the terms of the [MIT-License](http://en.wikipedia.org/wiki/MIT_License#License_terms).
 
 Copyright 2013, Philippe Charrière
-=======
-- workers sample : `./ff.sh samples/picalc` and try [http://localhost:8080/pi](http://localhost:8080/pi)
-- "full" webapp with Backbone & Knockout + REST API : `./ff.sh samples/webapp` and try [http://localhost:8080/](http://localhost:8080/)
-- Stream Updates with Server-Sent Events (HTML5) : `./ff.sh samples/serverevents` and try [http://localhost:8080/serverevents](http://localhost:8080/serverevents) or [http://localhost:8080/se.html](http://localhost:8080/se.html) (and see console browser) and [http://localhost:8080/servereventswithworker](http://localhost:8080/servereventswithworker) or [http://localhost:8080/sew.html](http://localhost:8080/sew.html) (and see console browser)
-- experiments : `./ff.sh samples/toons` and  try [http://localhost:8080/toons.html](http://localhost:8080/toons.html)
-- html dsl in action : `./ff.sh samples/html` and  try [http://localhost:8080](http://localhost:8080)
->>>>>>> update samples
+
